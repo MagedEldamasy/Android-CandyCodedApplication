@@ -5,13 +5,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
 
-public class InfoActivity extends AppCompatActivity{
+public class InfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,5 +50,24 @@ public class InfoActivity extends AppCompatActivity{
     // ***
     // TODO - Task 3 - Launch the Phone Activity
     // ***
+    public void createPhoneIntent(View view) {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:0123456789"));
+        startActivity(callIntent);
+//        if (ActivityCompat.checkSelfPermission(
+//                this,
+//                android.Manifest.permission.CALL_PHONE
+//        ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            permsRequestCode = 200
+//            ActivityCompat.requestPermissions(
+//                    this,
+//                    arrayOf("android.permission.CALL_PHONE"),
+//                    permsRequestCode
+//            )
+//        } else {
+
+        // }
+    }
 
 }
