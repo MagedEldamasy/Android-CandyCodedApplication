@@ -80,9 +80,9 @@ public class DetailActivity extends AppCompatActivity {
     // TODO - Task 4 - Share the Current Candy with an Intent
     // ***
     private void createShareIntent(){
-        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, SHARE_DESCRIPTION + mCandyImageUrl + HASHTAG_CANDYCODED);
-        startActivity(sharingIntent);
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, SHARE_DESCRIPTION + mCandyImageUrl + HASHTAG_CANDYCODED);
+        startActivity(shareIntent);
     }
 }
