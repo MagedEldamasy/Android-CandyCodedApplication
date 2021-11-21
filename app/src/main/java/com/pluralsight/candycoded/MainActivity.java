@@ -1,5 +1,6 @@
 package com.pluralsight.candycoded;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     Cursor cursor = db.rawQuery("SELECT * FROM candy", null);
 
     final CandyCursorAdapter adapter = new CandyCursorAdapter(this, cursor);
-    ListView listView = (ListView)this.findViewById(R.id.list_view_candy);
+    ListView listView = (ListView) this.findViewById(R.id.list_view_candy);
 
     listView.setAdapter(adapter);
 
@@ -52,25 +54,26 @@ public class MainActivity extends AppCompatActivity {
 
     AsyncHttpClient client = new AsyncHttpClient();
     client.get("https://vast-brushlands-23089.herokuapp.com/main/api",
-        new TextHttpResponseHandler() {
-          @Override
-          public void onFailure(int statusCode, Header[] headers, String response, Throwable throwable) {
-            Log.e("AsyncHttpClient", "response = " + response);
-          }
+            new TextHttpResponseHandler() {
+              @Override
+              public void onFailure(int statusCode, Header[] headers, String response, Throwable throwable) {
+                Log.e("AsyncHttpClient", "response = " + response);
+              }
 
-          @Override
-          public void onSuccess(int statusCode, Header[] headers, String response) {
-            Log.d("AsyncHttpClient", "response = " + response);
-            Gson gson = new GsonBuilder().create();;
-            candies = gson.fromJson(response, Candy[].class);
+              @Override
+              public void onSuccess(int statusCode, Header[] headers, String response) {
+                Log.d("AsyncHttpClient", "response = " + response);
+                Gson gson = new GsonBuilder().create();
+                ;
+                candies = gson.fromJson(response, Candy[].class);
 
-            addCandiesToDatabase(candies);
+                addCandiesToDatabase(candies);
 
-            SQLiteDatabase db = candyDbHelper.getWritableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM candy", null);
-            //adapter.changeCursor(cursor);
-          }
-        });
+                SQLiteDatabase db = candyDbHelper.getWritableDatabase();
+                Cursor cursor = db.rawQuery("SELECT * FROM candy", null);
+                //adapter.changeCursor(cursor);
+              }
+            });
   }
 
   @Override
@@ -96,4 +99,17 @@ public class MainActivity extends AppCompatActivity {
       db.insert(CandyContract.CandyEntry.TABLE_NAME, null, values);
     }
   }
+
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.info:
+        Intent i = new Intent(this, InfoActivity.class);
+        startActivity(i);
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
+  }
 }
+
