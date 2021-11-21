@@ -1,18 +1,17 @@
 package com.pluralsight.candycoded;
 
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
-import com.squareup.picasso.Picasso;
-import java.io.IOException;
-import java.util.ArrayList;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
+import android.widget.TextView;
 
-public class InfoActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.squareup.picasso.Picasso;
+
+public class InfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,17 +19,31 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info);
 
         Uri uri = Uri.parse("android.resource://com.codeschool.candycoded/" + R.drawable.store_front);
-        ImageView candyStoreImageView = (ImageView)findViewById(R.id.image_view_candy_store);
+        ImageView candyStoreImageView = (ImageView) findViewById(R.id.image_view_candy_store);
         Picasso.with(this).
                 load(uri).
                 into(candyStoreImageView);
-
-
+        TextView text_view_address=findViewById(R.id.text_view_address);
+        text_view_address.setOnClickListener(this);
     }
-
+    @Override
+    public void onClick(View v) {
+        if(v.getId()==R.id.text_view_address){
+            openMapIntent();
+        }
+    }
     // ***
     // TODO - Task 2 - Launch the Google Maps Activity
     // ***
+    void openMapIntent() {
+        String URL = ("http://maps.google.com/maps?q=618 E South St Orlando, FL 32801");
+        Uri location = Uri.parse(URL);
+        Intent mapIntent =new  Intent(Intent.ACTION_VIEW, location);
+        // Make the Intent explicit by setting the Google Maps package
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+    }
+
 
     // ***
     // TODO - Task 3 - Launch the Phone Activity
