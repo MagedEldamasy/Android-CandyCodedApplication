@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
 
+import java.net.URI;
+
 public class InfoActivity extends AppCompatActivity {
 
     @Override
@@ -51,7 +53,7 @@ public class InfoActivity extends AppCompatActivity {
     // TODO - Task 3 - Launch the Phone Activity
     // ***
     public void createPhoneIntent(View view) {
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        Intent callIntent = new Intent(Intent.ACTION_DIAL);
         callIntent.setData(Uri.parse("tel:0123456789"));
         startActivity(callIntent);
 //        if (ActivityCompat.checkSelfPermission(
