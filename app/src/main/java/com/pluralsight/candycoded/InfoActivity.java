@@ -23,22 +23,23 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         Picasso.with(this).
                 load(uri).
                 into(candyStoreImageView);
-        TextView text_view_address=findViewById(R.id.text_view_address);
-        text_view_address.setOnClickListener(this);
+//        TextView text_view_address = findViewById(R.id.text_view_address);
+//        text_view_address.setOnClickListener(this);
     }
-    @Override
-    public void onClick(View v) {
-        if(v.getId()==R.id.text_view_address){
-            openMapIntent();
-        }
-    }
+
+    //    @Override
+//    public void onClick(View v) {
+//        if(v.getId()==R.id.text_view_address){
+//            openMapIntent();
+//        }
+//    }
     // ***
     // TODO - Task 2 - Launch the Google Maps Activity
     // ***
-    void openMapIntent() {
-        String URL = ("http://maps.google.com/maps?q=618 E South St Orlando, FL 32801");
+    public void createMapIntent(View view) {
+        String URL = ("geo:0,0?q=618 E South St Orlando, FL 32801");
         Uri location = Uri.parse(URL);
-        Intent mapIntent =new  Intent(Intent.ACTION_VIEW, location);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
         // Make the Intent explicit by setting the Google Maps package
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);
